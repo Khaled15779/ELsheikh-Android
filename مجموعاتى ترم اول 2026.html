@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ELsheikh</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F5F5;--card:#fff;--ink:#12292B;--mut:#6B8284;--pri:#0F5257;--pri-t:#fff;--ok:#2E9E6B;--okb:#E2F4EA;--bad:#D8583F;--badb:#FCE9E4;--line:#DCE5E5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0C1819;--card:#142628;--ink:#E6F0F0;--mut:#8FA9AB;--pri:#4FB3B8;--pri-t:#062022;--okb:#173B2B;--badb:#41231D;--line:#24393B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0C1819;--card:#142628;--ink:#E6F0F0;--mut:#8FA9AB;--pri:#4FB3B8;--pri-t:#062022;--okb:#173B2B;--badb:#41231D;--line:#24393B;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;font-family:Cairo,Tahoma,sans-serif;background:var(--bg);color:var(--ink)}
+body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px));min-height:100%}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--pri);color:var(--pri-t);padding:10px 14px;display:flex;gap:10px;align-items:center}
+header h1{margin:0;font-size:20px;font-weight:800;letter-spacing:.5px;direction:ltr}
+header input{flex:1;min-width:0;border:0;border-radius:12px;padding:10px 12px;font:inherit;background:rgba(255,255,255,.18);color:var(--pri-t)}
+header input::placeholder{color:var(--pri-t);opacity:.75}
+header button{background:none;border:0;color:var(--pri-t);font-size:20px;min-width:44px;min-height:44px;cursor:pointer}
+main{max-width:720px;margin:0 auto;padding:14px}
+.row{display:flex;gap:10px;align-items:center}
+.sp{justify-content:space-between}
+select,input.f{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;min-height:44px}
+.card{background:var(--card);border-radius:16px;padding:14px;margin-bottom:10px;border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.stat b{display:block;font-size:26px;font-weight:800}
+.stat span{color:var(--mut);font-size:13px}
+.stat.main{grid-column:1/-1;background:var(--pri);color:var(--pri-t);border:0}
+.stat.main span{color:var(--pri-t);opacity:.8}
+.stat.main b{font-size:34px}
+.bad b{color:var(--bad)}
+.name{font-weight:600;font-size:16px}
+.sub{color:var(--mut);font-size:13px}
+.btn{border:0;border-radius:12px;padding:10px 14px;min-height:44px;font:inherit;font-weight:600;cursor:pointer;background:var(--pri);color:var(--pri-t)}
+.btn.o{background:none;border:1.5px solid var(--line);color:var(--ink)}
+.btn.s{min-height:40px;padding:6px 12px}
+.pill{border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;border:0;min-height:36px;cursor:pointer}
+.ok{background:var(--okb);color:var(--ok)}.no{background:var(--badb);color:var(--bad)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin:10px 0}
+.chip{flex:none;padding:8px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;min-height:40px;cursor:pointer}
+.chip[style]{border-color:var(--gc)}.chip.on{background:var(--gc,var(--pri));color:var(--pri-t);border-color:var(--gc,var(--pri))}.chip.on[style]{color:#fff}.sw{width:40px;height:40px;border-radius:50%;border:3px solid transparent;cursor:pointer}.sw.on{border-color:var(--ink)}.ic{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);background:none;font-size:22px;cursor:pointer}.ic.on{border-color:var(--ink);background:var(--line)}
+.bar{height:8px;border-radius:8px;background:var(--line);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+nav{position:fixed;bottom:0;inset-inline:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav button{flex:1;border:0;background:none;color:var(--mut);font:inherit;font-size:12px;padding:8px 0;min-height:56px;cursor:pointer}
+nav button span{display:block;font-size:20px}
+nav button.on{color:var(--pri);font-weight:800}
+dialog{border:0;border-radius:20px;padding:18px;width:min(92vw,420px);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog label{display:block;margin:10px 0 4px;font-size:14px;color:var(--mut)}
+.empty{text-align:center;color:var(--mut);padding:30px 10px}
+#toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;z-index:9}
+#toast.on{opacity:1}
+.pr{display:none}
+@media print{header,nav,.np,#toast{display:none!important}.pr{display:block}body{background:#fff;color:#000}.card{border:1px solid #999}}
+</style>
+</head>
+<body>
+<header><h1>ELsheikh</h1><input id="q" type="search" placeholder="ابحث عن طالب بالاسم أو الموبايل"><button id="th" aria-label="الوضع الداكن">🌓</button></header>
+<main id="app"></main>
+<nav id="nav"></nav>
+<dialog id="dlg"></dialog>
+<div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY='elsheikh_v1';
+let db={groups:[],students:[],pay:{},att:{}};
+try{const r=localStorage.getItem(KEY);if(r)db=JSON.parse(r)}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}};
+const COLORS=['#0F8B8D','#E07A5F','#3D5A98','#8E5BC4','#D4A017','#2E9E6B','#C2456B','#5B6C7A'];
+const ICONS=['📚','🧮','🔬','🌍','✏️','🎯','🚀','⭐','🎨','💡','🏆','🧠'];
+const STG=['ابتدائي','إعدادي','ثانوي'];
+const norm=t=>String(t??'').toLowerCase().replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\s+/g,' ').trim();
+const flat=t=>norm(t).replace(/ /g,'');
+const guessStage=n=>{const t=norm(n);return t.includes('ابتدا')?'ابتدائي':t.includes('اعداد')?'إعدادي':t.includes('ثانو')?'ثانوي':''};
+function fixG(){db.groups.forEach(g=>{if(g.stage===undefined)g.stage=guessStage(g.name);if(!g.color)g.color=COLORS.find(c=>!db.groups.some(x=>x.color===c))||COLORS[0];if(!g.icon)g.icon=ICONS.find(i=>!db.groups.some(x=>x.icon===i))||ICONS[0]})}
+fixG();
+const gc=id=>(db.groups.find(g=>g.id===id)||{}).color||'#6B8284';
+const gi=id=>(db.groups.find(g=>g.id===id)||{}).icon||'👤';
+let gSel={c:'',i:''};
+function pickC(c){gSel.c=c;document.querySelectorAll('.sw').forEach(b=>b.classList.toggle('on',b.dataset.c===c))}
+function pickI(i){gSel.i=i;document.querySelectorAll('.ic').forEach(b=>b.classList.toggle('on',b.dataset.i===i))}
+const today=new Date();
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const S={tab:'home',month:ymd(today).slice(0,7),q:'',g:'all',ag:'',ad:ymd(today)};
+const mNames=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const mLabel=m=>{const[y,n]=m.split('-');return mNames[+n-1]+' '+y};
+const shift=(m,k)=>{let[y,n]=m.split('-').map(Number);n+=k;while(n>12){n-=12;y++}while(n<1){n+=12;y--}return y+'-'+String(n).padStart(2,'0')};
+const grp=id=>db.groups.find(g=>g.id===id);
+const fee=s=>grp(s.gid)?+grp(s.gid).fee:0;
+const paid=(s,m=S.month)=>!!(db.pay[m]&&db.pay[m][s.id]);
+const money=n=>Number(n).toLocaleString('ar-EG')+' ج';
+const nk=s=>norm(s.name);
+const so=g=>{const i=STG.indexOf(g.stage);return i<0?9:i};
+const byGroup=(a,b)=>(so(a)-so(b))||byName(a,b);
+const byName=(a,b)=>nk(a).localeCompare(nk(b),'ar');
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1800)}
+function monthBar(){return `<div class="row sp np"><button class="btn o s" onclick="mv(-1)">‹</button><b>${mLabel(S.month)}</b><button class="btn o s" onclick="mv(1)">›</button></div>`}
+function mv(k){S.month=shift(S.month,k);render()}
+const inG=(s,g)=>g==='all'||(g.startsWith('stage:')?((db.groups.find(x=>x.id===s.gid)||{}).stage||'')===g.slice(6):s.gid===g);
+const active=(s,m)=>!s.join||s.join.slice(0,7)<=(m||S.month);
+function due(s){if(!s.join)return null;let m=s.join.slice(0,7),n=0,k=0;while(m<=S.month&&k++<600){if(!(db.pay[m]&&db.pay[m][s.id]))n++;m=shift(m,1)}return{n,amt:n*fee(s)}}
+function dueLine(s){const d=due(s);if(!d)return '';return d.n?`<div class="sub" style="color:var(--bad)">منذ الدخول (${s.join}): ${d.n} شهر غير مسدد = ${money(d.amt)}</div>`:`<div class="sub">دخل ${s.join} · لا متأخرات ✓</div>`}
+function toDate(v){if(v===''||v==null)return '';if(typeof v==='number'&&v>20000)return new Date(Math.round((v-25569)*864e5)).toISOString().slice(0,10);const t=String(v).trim();let m=t.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);if(m)return m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');m=t.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);if(m)return m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');return ''}
+function exportX(){
+  if(typeof XLSX==='undefined')return toast('مكتبة Excel لم تُحمَّل، تأكد من الإنترنت');
+  if(!db.students.length)return toast('لا يوجد طلاب للتصدير');
+  const gn=x=>(grp(x.gid)||{name:''}).name;
+  const rows=[...db.students].sort((a,b)=>(so(grp(a.gid)||{})-so(grp(b.gid)||{}))||gn(a).localeCompare(gn(b),'ar')||byName(a,b)).map(x=>{const g=grp(x.gid)||{},d=due(x);return{'الاسم':x.name,'الموبايل':x.phone||'','المجموعة':g.name||'','المرحلة':g.stage||'','تاريخ الدخول':x.join||'','المصروفات':g.fee||0,['سداد '+mLabel(S.month)]:active(x)?(paid(x)?'سدّد':'لم يسدّد'):'لم يلتحق','المتأخر منذ الدخول':d?d.amt:''}});
+  const ws=XLSX.utils.json_to_sheet(rows),wb=XLSX.utils.book_new();
+  ws['!cols']=[{wch:28},{wch:14},{wch:20},{wch:10},{wch:12},{wch:10},{wch:18},{wch:18}];
+  XLSX.utils.book_append_sheet(wb,ws,'الطلاب');wb.Workbook={Views:[{RTL:true}]};
+  try{XLSX.writeFile(wb,'ELsheikh-students-'+S.month+'.xlsx');toast('تم تصدير '+rows.length+' طالب')}catch(e){toast('تعذّر التصدير')}
+}
+function stageOf(sel){if(sel&&sel.startsWith('stage:'))return sel.slice(6);const g=grp(sel);return g?(g.stage||''):null}
+function groupChips(sel,fn,all=true){
+  const stages=[...STG,''].filter(x=>db.groups.some(g=>(g.stage||'')===x)),cur=stageOf(sel);
+  const first=x=>(db.groups.find(g=>(g.stage||'')===x)||{}).id;
+  const sr=`<div class="chips np">${all?`<button class="chip ${sel==='all'?'on':''}" onclick="${fn}('all')">الكل</button>`:''}${stages.map(x=>`<button class="chip ${cur===x?'on':''}" onclick="${fn}('${all?'stage:'+x:first(x)}')">${x||'بدون مرحلة'}</button>`).join('')}</div>`;
+  const gs=cur!==null?db.groups.filter(g=>(g.stage||'')===cur):[];
+  return sr+(gs.length?`<div class="chips np">${gs.map(g=>`<button class="chip ${sel===g.id?'on':''}" style="--gc:${g.color}" onclick="${fn}('${g.id}')">${g.icon} ${esc(g.name)}</button>`).join('')}</div>`:'')}
+function setG(v){S.g=v;render()}
+function setAG(v){S.ag=v;render()}
+function togglePay(id){const m=S.month;db.pay[m]=db.pay[m]||{};if(db.pay[m][id])delete db.pay[m][id];else db.pay[m][id]=true;save();render()}
+function toggleAtt(id){const a=db.att[S.ad]=db.att[S.ad]||{};a[S.ag]=a[S.ag]||{};if(a[S.ag][id])delete a[S.ag][id];else a[S.ag][id]=true;save();render()}
+
+function gCard(g,st){const ms=st.filter(s=>s.gid===g.id),p=ms.filter(s=>paid(s)).length,pc=ms.length?Math.round(p/ms.length*100):0;
+  return `<div class="card" style="border-inline-start:5px solid ${g.color};cursor:pointer" onclick="editG('${g.id}')"><div class="row sp"><span class="name">${g.icon} ${esc(g.name)} ✎</span><span class="sub">${p} / ${ms.length} سدّدوا</span></div><div class="sub">محصّل ${money(p*g.fee)} من ${money(ms.length*g.fee)}</div><div class="bar"><i style="width:${pc}%;background:${g.color}"></i></div></div>`}
+function home(){
+  const st=db.students.filter(s=>active(s)),pd=st.filter(s=>paid(s)),up=st.filter(s=>!paid(s));
+  const got=pd.reduce((a,s)=>a+fee(s),0),left=up.reduce((a,s)=>a+fee(s),0);
+  const secs=[...STG,''].map(sg=>{
+    const gs=db.groups.filter(g=>(g.stage||'')===sg);if(!gs.length)return '';
+    const ids=gs.map(g=>g.id),ms=st.filter(s=>ids.includes(s.gid)),tot=ms.filter(s=>paid(s)).reduce((a,s)=>a+fee(s),0);
+    return `<div class="row sp" style="margin:18px 0 8px"><h3 style="margin:0">${sg||'بدون مرحلة'}</h3><span class="sub">${ms.length} طالب · محصّل ${money(tot)}</span></div>`+gs.map(g=>gCard(g,st)).join('')}).join('');
+  return monthBar()+`<div class="grid">
+  <div class="stat main"><span>إجمالي التحصيل هذا الشهر</span><b>${money(got)}</b></div>
+  <div class="stat"><span>عدد الطلاب</span><b>${st.length}</b></div>
+  <div class="stat bad"><span>لم يسددوا</span><b>${up.length}</b></div>
+  <div class="stat bad" style="grid-column:1/-1"><span>متبقي للتحصيل</span><b>${money(left)}</b></div></div>
+  <div class="sub">اضغط على المجموعة لتعديلها</div>`+(secs||`<div class="empty">ابدأ بإضافة مجموعة من تبويب الطلاب</div>`)+`<div class="row np" style="margin-top:22px"><button class="btn o" style="flex:1" onclick="bk()">💾 نسخة احتياطية</button><button class="btn o" style="flex:1" onclick="$('#rf').click()">استرجاع نسخة</button><input id="rf" type="file" accept=".json" hidden onchange="rs(this.files[0])"></div>`
+}
+function bk(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db)],{type:'application/json'}));a.download='elsheikh-backup-'+ymd(new Date())+'.json';a.click();toast('تم تحميل النسخة الاحتياطية')}
+function rs(f){if(!f)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(!d.groups||!d.students)throw 0;if(!confirm('سيتم استبدال البيانات الحالية بالنسخة. متابعة؟'))return;db=d;fixG();save();render();toast('تم الاسترجاع')}catch(x){toast('ملف غير صالح')}};r.readAsText(f)}
+function students(){
+  const q=flat(S.q);
+  let l=db.students.filter(s=>inG(s,S.g)&&(!q||flat(s.name).includes(q)||flat(s.phone||'').includes(q))).sort(byName);
+  return monthBar()+groupChips(S.g,'setG')+`<div class="row np"><button class="btn" style="flex:1" onclick="editS()">+ طالب جديد</button><button class="btn o" onclick="editG()">+ مجموعة</button></div><div class="row np" style="margin-top:8px"><button class="btn o" style="flex:1" onclick="importS()">📥 استيراد من Excel</button><button class="btn o" style="flex:1" onclick="exportX()">📤 تصدير إلى Excel</button></div>
+`+
+  (l.length?l.map(s=>`<div class="card" style="border-inline-start:5px solid ${gc(s.gid)}"><div class="row sp"><div onclick="editS('${s.id}')" style="flex:1;cursor:pointer"><div class="name">${esc(s.name)}</div><div class="sub">${gi(s.gid)} ${esc(grp(s.gid)?.name||'بدون مجموعة')}${s.phone?' · '+esc(s.phone):''}</div>${dueLine(s)}</div>${active(s)?`<button class="pill ${paid(s)?'ok':'no'}" onclick="togglePay('${s.id}')">${paid(s)?'✓ سدّد':'لم يسدّد'}</button>`:`<span class="sub">لم يلتحق بعد</span>`}</div></div>`).join(''):`<div class="empty">${q?'لا يوجد طالب بهذا الاسم':'لا يوجد طلاب بعد. اضغط "طالب جديد" للبدء.'}</div>`)
+}
+function attend(){
+  if(!S.ag||!grp(S.ag))S.ag=db.groups[0]?.id||'';
+  if(!db.groups.length)return `<div class="empty">أضف مجموعة وطلابًا أولًا لتسجيل الحضور</div>`;
+  const l=db.students.filter(s=>s.gid===S.ag).sort(byName),a=(db.att[S.ad]||{})[S.ag]||{},n=l.filter(s=>a[s.id]).length;
+  return groupChips(S.ag,'setAG',false)+`<input class="f" type="date" value="${S.ad}" onchange="S.ad=this.value||S.ad;render()">
+  <div class="card" style="margin-top:12px"><div class="row sp"><span class="name">حضر ${n} من ${l.length}</span><span class="sub">غاب ${l.length-n}</span></div></div>`+
+  (l.length?l.map(s=>`<div class="card" style="border-inline-start:5px solid ${gc(s.gid)}"><div class="row sp"><span class="name">${esc(s.name)}</span><button class="pill ${a[s.id]?'ok':'no'}" onclick="toggleAtt('${s.id}')">${a[s.id]?'✓ حاضر':'غائب'}</button></div></div>`).join(''):`<div class="empty">لا يوجد طلاب في هذه المجموعة</div>`)
+}
+function unpaidList(){return db.students.filter(s=>!paid(s)&&active(s)&&inG(s,S.g)).sort(byName)}
+function unpaid(){
+  const l=unpaidList(),tot=l.reduce((a,s)=>a+fee(s),0);
+  return monthBar()+groupChips(S.g,'setG')+`<div class="card"><div class="row sp"><div><div class="name">${l.length} طالب لم يسددوا</div><div class="sub">المتأخر: ${money(tot)}</div></div></div></div>
+  <div class="row np" style="margin-bottom:12px"><button class="btn o" style="flex:1" onclick="window.print()">طباعة / PDF</button><button class="btn o" style="flex:1" onclick="copyList()">نسخ القائمة</button></div><div class="pr"><h2>كشف غير المسددين — ${mLabel(S.month)}</h2></div>`+
+  (l.length?l.map(s=>`<div class="card" style="border-inline-start:5px solid ${gc(s.gid)}"><div class="row sp"><div><div class="name">${esc(s.name)}</div><div class="sub">${gi(s.gid)} ${esc(grp(s.gid)?.name||'')} · ${money(fee(s))}${s.phone?' · '+esc(s.phone):''}</div>${dueLine(s)}</div><button class="btn s np" onclick="togglePay('${s.id}')">تم الدفع</button></div></div>`).join(''):`<div class="empty">الجميع سدّد هذا الشهر 🎉</div>`)
+}
+function copyList(){
+  const t='غير المسددين — '+mLabel(S.month)+'\n'+unpaidList().map((s,i)=>(i+1)+'. '+s.name+' ('+(grp(s.gid)?.name||'')+') '+fee(s)+' ج').join('\n');
+  navigator.clipboard.writeText(t).then(()=>toast('تم نسخ القائمة'),()=>toast('تعذّر النسخ'))
+}
+const dlg=$('#dlg');
+function editS(id){
+  const s=db.students.find(x=>x.id===id)||{name:'',phone:'',gid:db.groups[0]?.id};
+  if(!db.groups.length){toast('أضف مجموعة أولًا');return editG()}
+  dlg.innerHTML=`<h3>${id?'تعديل طالب':'طالب جديد'}</h3><label>الاسم</label><input class="f" id="sn" value="${esc(s.name)}"><label>رقم الموبايل (اختياري)</label><input class="f" id="sp" inputmode="tel" value="${esc(s.phone)}"><label>المجموعة</label><select id="sg">${db.groups.map(g=>`<option value="${g.id}" ${g.id===s.gid?'selected':''}>${esc(g.name)}</option>`).join('')}</select><label>تاريخ الدخول للمجموعة (تُحسب المصروفات من شهره)</label><input class="f" type="date" id="sj" value="${id?(s.join||''):ymd(new Date())}">
+  <div class="row" style="margin-top:16px"><button class="btn" style="flex:1" onclick="saveS('${id||''}')">حفظ</button>${id?`<button class="btn o" style="color:var(--bad)" onclick="delS('${id}')">حذف</button>`:''}<button class="btn o" onclick="dlg.close()">إلغاء</button></div>`;dlg.showModal()
+}
+function saveS(id){
+  const name=$('#sn').value.trim();if(!name)return toast('اكتب اسم الطالب');
+  const o={name,phone:$('#sp').value.trim(),gid:$('#sg').value,join:$('#sj').value};
+  if(id)Object.assign(db.students.find(x=>x.id===id),o);else db.students.push({id:uid(),...o});
+  save();dlg.close();render();toast('تم الحفظ')
+}
+function delS(id){if(!confirm('حذف هذا الطالب نهائيًا؟'))return;db.students=db.students.filter(s=>s.id!==id);save();dlg.close();render()}
+function editG(id){
+  const g=grp(id)||{name:'',fee:'',stage:'',color:COLORS.find(c=>!db.groups.some(x=>x.color===c))||COLORS[0],icon:ICONS.find(i=>!db.groups.some(x=>x.icon===i))||ICONS[0]};gSel={c:g.color,i:g.icon};
+  dlg.innerHTML=`<h3>${id?'تعديل مجموعة':'مجموعة جديدة'}</h3><label>اسم المجموعة</label><input class="f" id="gn" value="${esc(g.name)}"><label>المصروفات الشهرية (جنيه)</label><input class="f" id="gf" type="number" inputmode="numeric" value="${esc(g.fee)}"><label>المرحلة</label><select id="gs"><option value="">— بدون مرحلة —</option>${STG.map(x=>`<option ${g.stage===x?'selected':''}>${x}</option>`).join('')}</select><label>لون المجموعة</label><div class="row" style="flex-wrap:wrap">${COLORS.map(c=>`<button class="sw ${gSel.c===c?'on':''}" data-c="${c}" style="background:${c}" onclick="pickC('${c}')"></button>`).join('')}</div><label>شعار المجموعة</label><div class="row" style="flex-wrap:wrap">${ICONS.map(i=>`<button class="ic ${gSel.i===i?'on':''}" data-i="${i}" onclick="pickI('${i}')">${i}</button>`).join('')}</div>
+  <div class="row" style="margin-top:16px"><button class="btn" style="flex:1" onclick="saveG('${id||''}')">حفظ</button>${id?`<button class="btn o" style="color:var(--bad)" onclick="delG('${id}')">حذف</button>`:''}<button class="btn o" onclick="dlg.close()">إلغاء</button></div>`;dlg.showModal()
+}
+function saveG(id){
+  const name=$('#gn').value.trim(),f=+$('#gf').value;if(!name||!(f>=0)||$('#gf').value==='')return toast('اكتب الاسم والمبلغ');
+  if(id)Object.assign(grp(id),{name,fee:f,color:gSel.c,icon:gSel.i,stage:$('#gs').value});else db.groups.push({id:uid(),name,fee:f,color:gSel.c,icon:gSel.i,stage:$('#gs').value});db.groups.sort(byGroup);
+  save();dlg.close();render();toast('تم الحفظ')
+}
+function delG(id){
+  if(db.students.some(s=>s.gid===id))return toast('انقل طلاب المجموعة أو احذفهم أولًا');
+  if(!confirm('حذف المجموعة؟'))return;db.groups=db.groups.filter(g=>g.id!==id);S.g='all';save();dlg.close();render()
+}
+let imp=null;
+function importS(){
+  imp=null;
+  dlg.innerHTML=`<h3>استيراد طلاب من Excel</h3><div class="sub">ملف xlsx أو csv. العمود الأول للاسم، ثم الموبايل والمجموعة (اختياريان). يمكن أن يبدأ الملف بسطر عناوين مثل: الاسم، الموبايل، المجموعة.</div>
+  <label>المجموعة الافتراضية (للأسماء التي ليس لها عمود مجموعة)</label><select id="ig"><option value="">— اختر —</option>${db.groups.map(g=>`<option value="${g.id}">${esc(g.name)}</option>`).join('')}</select>
+  <label>مصروفات أي مجموعة جديدة تُنشأ من الملف (جنيه)</label><input class="f" id="if" type="number" inputmode="numeric" value="0">
+  <label>الملف</label><input class="f" type="file" accept=".xlsx,.xls,.csv" onchange="readX(this.files[0])">
+  <div id="ipv" class="sub" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:16px"><button class="btn" id="ibtn" style="flex:1" disabled onclick="doImp()">استيراد</button><button class="btn o" onclick="dlg.close()">إلغاء</button></div>`;
+  dlg.showModal()
+}
+function readX(f){
+  if(!f)return;
+  if(typeof XLSX==='undefined')return toast('مكتبة Excel لم تُحمَّل، تأكد من الإنترنت');
+  const r=new FileReader();
+  r.onload=e=>{try{
+    const wb=XLSX.read(e.target.result,{type:'array'});
+    const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:''});
+    const h=(rows[0]||[]).map(x=>String(x).trim().toLowerCase());
+    const fi=re=>h.findIndex(x=>re.test(x));
+    let ni=0,pi=1,gi=-1,ji=-1,st=0;
+    if(fi(/اسم|name|طالب/)>=0){st=1;ni=fi(/اسم|name|طالب/);pi=fi(/موبايل|تليفون|هاتف|phone|mobile|رقم/);gi=fi(/مجموعة|مجموعه|group/);ji=fi(/دخول|التحاق|join/)}
+    imp=rows.slice(st).map(r=>{let p=pi>=0?String(r[pi]??'').trim():'';if(/^1\d{9}$/.test(p))p='0'+p;return{name:String(r[ni]??'').trim().replace(/\s+/g,' '),phone:p,group:gi>=0?String(r[gi]??'').trim():'',join:ji>=0?toDate(r[ji]):''}}).filter(x=>x.name);
+    $('#ipv').textContent=imp.length?('تم العثور على '+imp.length+' اسم'+(gi>=0?' مع عمود المجموعة':'')+'. راجع المجموعة الافتراضية ثم اضغط استيراد.'):'لم أجد أسماء في الملف';
+    $('#ibtn').disabled=!imp.length
+  }catch(err){toast('تعذّرت قراءة الملف')}};
+  r.readAsArrayBuffer(f)
+}
+function doImp(){
+  if(!imp||!imp.length)return;
+  const dg=$('#ig').value,nf=+$('#if').value||0;
+  let add=0,dup=0,skip=0,newG=0;
+  imp.forEach(x=>{
+    let gid=dg;
+    if(x.group){let g=db.groups.find(g=>g.name.trim()===x.group);if(!g){g={id:uid(),name:x.group,fee:nf,stage:guessStage(x.group)};db.groups.push(g);newG++}gid=g.id}
+    if(!gid){skip++;return}
+    if(db.students.some(s=>s.gid===gid&&nk(s)===nk(x))){dup++;return}
+    db.students.push({id:uid(),name:x.name,phone:x.phone,gid,join:x.join||''});add++
+  });
+  fixG();db.groups.sort(byGroup);db.students.sort(byName);save();dlg.close();render();
+  toast('أُضيف '+add+' طالب'+(dup?'، تكرار '+dup:'')+(skip?'، بدون مجموعة '+skip:'')+(newG?'، مجموعات جديدة '+newG:''))
+}
+const tabs=[['home','🏠','الرئيسية'],['students','👥','الطلاب'],['att','✅','الحضور'],['unpaid','🧾','غير المسددين']];
+function render(){db.groups.sort(byGroup);
+  $('#nav').innerHTML=tabs.map(t=>`<button class="${S.tab===t[0]?'on':''}" onclick="S.tab='${t[0]}';render();scrollTo(0,0)"><span>${t[1]}</span>${t[2]}</button>`).join('');
+  $('#app').innerHTML=({home,students,att:attend,unpaid})[S.tab]()
+}
+$('#q').addEventListener('input',e=>{S.q=e.target.value;if(S.tab!=='students')S.tab='students';render()});
+$('#th').onclick=()=>{const r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'};
+render();
+</script>
+</body>
+</html>
